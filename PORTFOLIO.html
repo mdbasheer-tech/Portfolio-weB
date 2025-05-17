@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bill Gates Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg: #0b0c10;
+            --card: #1a1a1d;
+            --text: #e6e6fa;
+            --accent: #66fcf1;
+            --highlight: #45a29e;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--bg);
+            border-bottom: 1px solid #2c2c2e;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        header h1 {
+            color: var(--highlight);
+            font-size: 2.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        header h1:hover {
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        nav a {
+            margin: 0 1.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        #hamburger-btn {
+            display: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #hamburger-btn:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            #hamburger-btn {
+                display: block;
+            }
+        }
+
+        #mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #mobile-menu.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        #mobile-menu-content {
+            background: var(--bg);
+            width: 95%;
+            max-width: 600px;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: fadeIn 0.5s forwards, slideIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); }
+            to { transform: translateY(0); }
+        }
+
+        #mobile-menu-content nav {
+            display: block;
+        }
+
+        #mobile-menu-content nav a {
+            display: block;
+            margin: 1.5rem 0;
+            font-size: 1.5rem;
+            color: var(--text);
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #mobile-menu-content nav a:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        #close-menu-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #close-menu-btn:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+
+        .hero {
+            text-align: center;
+            padding: 12rem 2rem 10rem;
+            background: linear-gradient(135deg, #003340, #00506b);
+            color: white;
+            border-bottom: 1px solid #2c2c2e;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            animation: pulse 3s infinite alternate;
+        }
+
+        .hero img:hover {
+            border-color: var(--highlight);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+
+        .hero h2 {
+            font-size: 4rem;
+            margin: 0.5rem 0;
+            color: var(--highlight);
+            letter-spacing: -0.02em;
+            transition: color 0.3s ease, transform 0.3s ease;
+            animation: fadeInText 1s ease, slideInText 1s ease;
+        }
+
+        .hero h2:hover {
+            color: var(--accent);
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInText {
+            from { transform: translateX(-50px); }
+            to { transform: translateX(0); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #d4d4dc;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.9;
+            animation: fadeIn 1s ease 0.5s;
+        }
+
+        .section {
+            padding: 8rem 2rem;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        h3 {
+            font-size: 3rem;
+            margin-bottom: 2.5rem;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid #333;
+            padding-bottom: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        h3:hover {
+            color: var(--highlight);
+            transform: scale(1.03);
+        }
+
+
+        .card {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid #2c2c2e;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.04);
+            box-shadow: 0 10px 35px rgba(0,255,255,0.2);
+            border-color: var(--accent);
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3.5rem;
+        }
+
+        .timeline li {
+            margin: 2.5rem 0;
+            padding-left: 1.6rem;
+            border-left: 3px solid var(--accent);
+            position: relative;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .timeline li:hover {
+            border-color: var(--highlight);
+            transform: translateX(5px);
+        }
+
+        .timeline li::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 0.7rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .timeline li:hover::before {
+            background-color: var(--highlight);
+            transform: scale(1.2);
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .contact input,
+        .contact textarea {
+            padding: 1.4rem;
+            border: 1px solid #333;
+            background: #0f0f13;
+            color: var(--text);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 3px 10px rgba(0, 255, 255, 0.2);
+        }
+
+        .contact button {
+            width: fit-content;
+            padding: 1.2rem 2.5rem;
+            background: var(--accent);
+            border: none;
+            color: var(--bg);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+
+        .contact button:hover {
+            background-color: var(--highlight);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.25);
+        }
+
+        .contact button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #b8b8b8;
+            border-top: 1px solid #333;
+            margin-top: 10rem;
+            background-color: #0f0f13;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease 0.5s;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--highlight);
+            transform: scale(1.08);
+        }
+
+        .image-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .image-card img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .image-card img:hover {
+            transform: rotateY(20deg) scale(1.1);
+            box-shadow: 0 12px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .quote-card {
+            background: var(--card);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            margin: 2rem 0;
+            border: 1px solid #2c2c2e;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .quote-card blockquote {
+            font-size: 1.7rem;
+            line-height: 2;
+            color: var(--text);
+            font-style: italic;
+            margin-bottom: 2rem;
+            quotes: "“" "”" "‘" "’";
+            animation: fadeIn 1s ease 0.5s;
+        }
+
+        .quote-card blockquote::before {
+            content: open-quote;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-right: 0.7rem;
+            vertical-align: -0.4em;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards, slideInLeft 0.5s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-20px); }
+            to { transform: translateX(0); }
+        }
+
+
+        .quote-card blockquote::after {
+            content: close-quote;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-left: 0.7rem;
+            vertical-align: -0.4em;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards, slideInRight 0.5s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(20px); }
+            to { transform: translateX(0); }
+        }
+
+        .quote-card p {
+            font-size: 1.2rem;
+            color: #b8b8b8;
+            text-align: right;
+            animation: fadeIn 1s ease 0.8s;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bill Gates</h1>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#projects">Projects</a>
+        <a href="#books">Books</a>
+        <a href="#skills">Skills</a>
+        <a href="#media">Media</a>
+        <a href="#research">Research</a>
+        <a href="#visits">Visits</a>
+        <a href="#quotes">Quotes</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <button id="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+</header>
+
+<div id="mobile-menu">
+    <div id="mobile-menu-content">
+        <button id="close-menu-btn" aria-label="Close Menu">X</button>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#projects">Projects</a>
+             <a href="#books">Books</a>
+            <a href="#skills">Skills</a>
+            <a href="#media">Media</a>
+            <a href="#research">Research</a>
+            <a href="#visits">Visits</a>
+             <a href="#quotes">Quotes</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</div>
+
+<section id="about" class="section">
+    <h3>About Bill Gates</h3>
+    <div class="grid">
+        <div class="card">
+            <p>
+                William Henry Gates III, born on October 28, 1955, is an American business magnate, software developer, investor, author, and philanthropist. He is best known for co-founding Microsoft Corporation with his childhood friend Paul Allen. Gates grew Microsoft into the world's largest personal-computer software company.
+            </p>
+            <p>
+                Beyond Microsoft, Gates has dedicated a significant portion of his life to philanthropy. He co-founded the Bill & Melinda Gates Foundation, which is now one of the world's largest private charitable foundations. Through the foundation, he works on a wide range of global issues, including improving health, reducing poverty, and increasing access to education and technology.
+            </p>
+        </div>
+        <div class="image-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Bill_Gates_2018.jpg" alt="Bill Gates">
+        </div>
+    </div>
+</section>
+
+<section id="timeline" class="section">
+    <h3>Timeline</h3>
+    <ul class="timeline">
+        <li>
+            <strong>1975:</strong> Co-founded Microsoft with Paul Allen.
+        </li>
+        <li>
+            <strong>1980:</strong> Microsoft licenses MS-DOS to IBM, a pivotal moment for the company.
+        </li>
+        <li>
+            <strong>1985:</strong> Microsoft releases Windows 1.0.
+        </li>
+        <li>
+            <strong>1995-2001:</strong> Gates is consistently ranked as the richest person in the world by Forbes.
+        </li>
+        <li>
+            <strong>2000:</strong> Steps down as CEO of Microsoft to focus on philanthropy.
+        </li>
+        <li>
+            <strong>2000:</strong> The Bill & Melinda Gates Foundation is established.
+        </li>
+         <li>
+            <strong>2005:</strong> Gates and his wife Melinda are named by Time as Persons of the Year.
+         </li>
+        <li>
+            <strong>2010:</strong> The Giving Pledge campaign is launched by Gates, Warren Buffett, and Mark Zuckerberg.
+        </li>
+        <li>
+            <strong>2020:</strong> Steps down from the board of Microsoft to dedicate more time to philanthropic efforts.
+        </li>
+    </ul>
+</section>
+
+<section id="projects" class="section">
+    <h3>Projects</h3>
+    <div class="grid">
+        <div class="card">
+            <h4>Microsoft</h4>
+            <p>
+                Bill Gates's most famous project, Microsoft, revolutionized personal computing. From the early days of MS-DOS, which provided the foundational operating system for IBM PCs, to the groundbreaking graphical user interface of Windows, Microsoft's software became indispensable worldwide. The development of Microsoft Office further solidified their impact on productivity across industries.
+            </p>
+            <div class="image-card">
+                <img src="https://cdn.pixabay.com/photo/2016/03/31/14/40/app-1292762_1280.jpg" alt="Microsoft Office">
+            </div>
+        </div>
+        <div class="card">
+            <h4>Bill & Melinda Gates Foundation</h4>
+            <p>
+                The Foundation is dedicated to tackling some of the world's most pressing issues. A significant focus has been on global health initiatives, including the fight against polio. Their efforts, in collaboration with organizations like the WHO and UNICEF, have dramatically reduced polio cases globally, bringing eradication within reach. They also invest heavily in combating diseases like HIV/AIDS, malaria, and tuberculosis, and in improving maternal and child health.
+            </p>
+            <div class="image-card">
+                <img src="https://cdn.pixabay.com/photo/2014/10/22/17/34/pill-498664_1280.jpg" alt="Gates Foundation Health Programs">
+            </div>
+        </div>
+        <div class="card">
+            <h4>The Giving Pledge</h4>
+            <p>
+                A campaign co-founded by Bill and Melinda Gates and Warren Buffett, The Giving Pledge encourages billionaires to publicly commit to giving the majority of their wealth to philanthropic causes. This initiative has fostered a culture of giving among the ultra-wealthy, resulting in pledges of hundreds of billions of dollars towards various charitable endeavors worldwide.
+            </p>
+            <div class="image-card">
+                <img src="https://cdn.pixabay.com/photo/2019/03/20/11/24/hands-4068573_1280.jpg" alt="Giving Pledge">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="books" class="section">
+    <h3>Books</h3>
+    <div class="grid">
+        <div class="card">
+            <h4>The Road Ahead</h4>
+            <p>
+                Published in 1995, this book discusses the implications of the emerging information superhighway.
+            </p>
+             <div class="image-card">
+                <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1401340124l/117719.jpg" alt="The Road Ahead">
+            </div>
+        </div>
+        <div class="card">
+            <h4>Business @ the Speed of Thought</h4>
+            <p>
+               Published in 1999, explores how technology can solve business problems.
+            </p>
+             <div class="image-card">
+               <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386921592l/3131.jpg" alt="Business @ the Speed of Thought">
+            </div>
+        </div>
+        <div class="card">
+            <h4>How to Avoid a Climate Disaster</h4>
+            <p>
+               Published in 2021,  Bill Gates lays out a wide-ranging plan for how the world can get to zero greenhouse gas emissions in time to avoid the worst effects of climate change.
+            </p>
+             <div class="image-card">
+                <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1610922262l/56296828.jpg" alt="How to Avoid a Climate Disaster">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="section">
+    <h3>Skills</h3>
+    <div class="grid">
+        <div class="card">
+            <h4>Software Development</h4>
+            <p>
+                Deep understanding of software architecture and programming. He was involved in key decisions in the development of Microsoft's core products.
+            </p>
+        </div>
+        <div class="card">
+            <h4>Business Strategy</h4>
+            <p>
+                Exceptional ability to lead and grow a company to global dominance. Gates's strategic vision was crucial to Microsoft's success.
+            </p>
+        </div>
+        <div class="card">
+            <h4>Philanthropy</h4>
+            <p>
+                Expertise in identifying and addressing global challenges with impactful solutions. His foundation is known for its data-driven approach.
+            </p>
+        </div>
+        <div class="card">
+            <h4>Investment</h4>
+            <p>
+                Knowledge of investment strategies. Gates has made significant investments through Cascade Investment.
+            </p>
+        </div>
+         <div class="card">
+            <h4>Public Speaking</h4>
+            <p>
+                Ability to communicate effectively to a variety of audiences.
+            </p>
+        </div>
+        <div class="card">
+            <h4>Problem Solving</h4>
+            <p>
+               Demonstrated ability to tackle complex problems.
+            </p>
+        </div>
+         <div class="card">
+            <h4>Strategic Thinking</h4>
+            <p>
+               Ability to develop longterm plans and strategies.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="media" class="section">
+    <h3>Media</h3>
+    <div class="grid">
+        <div class="card">
+            <h4>Documentaries</h4>
+            <p>
+                Featured in documentaries like "Inside Bill's Brain: Decoding Bill Gates", which provides an in-depth look at his life and work.
+            </p>
+            <div class="image-card">
+                <img src="https://m.media-amazon.com/images/M/MV5BMzY1MTEwMjYtNmYxNy00ZDJmLTgwZjMtYjM2ZDU1M2EwMjEwXkEyXkFqcGdeQXVyMTEyMjM2NDg0._V1_.jpg" alt="Inside Bill's Brain">
+            </div>
+        </div>
+        <div class="card">
+            <h4>Books</h4>
+            <p>
+                Author of "The Road Ahead", "Business @ the Speed of Thought", and "How to Avoid a Climate Disaster", which reflect his views on technology, business, and global challenges.
+            </p>
+            <div class="image-card">
+                <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1610922262l/56296828.jpg" alt="How to Avoid a Climate Disaster">
+            </div>
+        </div>
+        <div class="card">
+            <h4>Interviews</h4>
+            <p>
+                Numerous interviews on television, podcasts, and online platforms, where he discusses his ideas and initiatives.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="research" class="section">
+    <h3>Research & Publications</h3>
+    <div class="grid">
+        <div class="card">
+            <h4>How to Avoid a Climate Disaster</h4>
+            <p>Bill’s latest book explains the path to zero carbon emissions and the innovations needed to prevent environmental catastrophe.</p>
+        </div>
+        <div class="card">
+            <h4>Vaccine Development</h4>
+            <p>Through CEPI and GAVI, Bill has invested in the development and equitable distribution of vaccines across the world.</p>
+        </div>
+        <div class="card">
+            <h4>Education & Innovation</h4>
+            <p>Supports AI and EdTech research to enhance learning in developing countries.</p>
+        </div>
+    </div>
+</section>
+
+<section id="visits" class="section">
+    <h3>Global Humanitarian Visits</h3>
+    <ul class="timeline">
+        <li><strong>India (2023):</strong> Discussed sanitation and vaccine programs with government officials and NGOs.</li>
+        <li><strong>Nigeria (2022):</strong> Reviewed progress on polio eradication and primary healthcare initiatives.</li>
+        <li><strong>Bangladesh (2022):</strong> Focused on climate change adaptation and agricultural development projects.</li>
+    </ul>
+</section>
+
+<section id="quotes" class="section">
+    <h3>Quotes</h3>
+    <div class="grid">
+        <div class="quote-card">
+            <blockquote>
+                "Success is a lousy teacher. It seduces smart people into thinking they can't lose."
+            </blockquote>
+            <p>&mdash; Bill Gates</p>
+        </div>
+        <div class="quote-card">
+            <blockquote>
+                "Your most unhappy customers are your greatest source of learning."
+            </blockquote>
+            <p>&mdash; Bill Gates</p>
+        </div>
+        <div class="quote-card">
+            <blockquote>
+                "We can't solve the world's problems by saying, 'Someone else will do it.'"
+            </blockquote>
+            <p>&mdash; Bill Gates</p>
+        </div>
+    </div>
+</section>
+
+
+<section id="contact" class="section">
+    <h3>Contact</h3>
+    <div class="card">
+        <p>
+            For inquiries, please visit the <a href="https://www.gatesfoundation.org/Contact-Us" target="_blank">Bill & Melinda Gates Foundation Contact Us</a> page.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Bill Gates Portfolio. All rights reserved. This website is not affiliated with Bill Gates.  <a href="https://www.gatesfoundation.org/" target="_blank">Learn more about the Bill & Melinda Gates Foundation.</a></p>
+</footer>
+
+<script>
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeMenuBtn = document.getElementById("close-menu-btn");
+    const mobileMenuLinks = mobileMenu.querySelectorAll("nav a");
+    const navLinks = document.querySelectorAll('header nav a');
+    const sections = document.querySelectorAll('section');
+
+
+    function toggleMobileMenu() {
+        mobileMenu.classList.toggle("active");
+    }
+
+    hamburgerBtn.addEventListener("click", toggleMobileMenu);
+    closeMenuBtn.addEventListener("click", toggleMobileMenu);
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener("click", toggleMobileMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+        if (mobileMenu.classList.contains('active') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
+            toggleMobileMenu();
+        }
+    });
+
+    function updateActiveNavLink() {
+        let currentSectionId = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').slice(1) === currentSectionId) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNavLink);
+
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</body>
+</html>
